@@ -1,0 +1,63 @@
+@startuml
+
+class Agencia {
+  - vuelos : List<Vuelo>
+  - numVuelos : int
+  - capacidadVuelos : int
+
+  + Agencia(capacidadInicial : int)
+  + crearVuelo(v : Vuelo) : void
+  + buscarVueloPorNumero(numeroVuelo : String) : Vuelo
+  + listarVuelos() : List<Vuelo>
+  + comprarTiquete(numeroVuelo : String, numPasajeros : Pasajero) : boolean
+  + buscarPasajero(idPasajero : String) : String
+}
+
+class Vuelo {
+  - numeroVuelo : String
+  - ciudadSalida : String
+  - ciudadLlegada : String
+  - fechaHoraSalida : LocalDate
+  - fechaHoraLlegada : LocalDate
+  - piloto : Piloto
+  - totalSillas : int
+  - sillas : List<Silla>
+  - numPasajeros : int
+
+  + Vuelo(numeroVuelo : String, ciudadSalida : String, ciudadLlegada : String, piloto : Piloto, totalSillas : int)
+  + asignarPasajero(p : Pasajero) : boolean
+  + mostrarListaPasajeros() : List<Pasajero>
+  + buscarSillaPorPasajeroid(idPasajero : String) : Silla
+  + mostrarDatosVuelo() : void
+}
+
+class Piloto {
+  - idPiloto : String
+  - nombre : String
+  - horasVuelo : int
+
+  + Piloto(idPiloto : String, nombre : String, horasVuelo : int)
+}
+
+class Silla {
+  - codigo : String
+  - pasajero : Pasajero
+
+  + Silla(codigo : String)
+  + asignarPasajero(p : Pasajero) : void
+}
+
+class Pasajero {
+  - id : String
+  - nombre : String
+  - edad : int
+  - genero : char
+
+  + Pasajero(id : String, nombre : String, edad : int, genero : char)
+}
+
+Agencia "1" -- "*" Vuelo : tiene
+Vuelo "1" -- "1" Piloto
+Vuelo "1" *-- "*" Silla
+Silla "1" -- "1" Pasajero
+@enduml
